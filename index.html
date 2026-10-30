@@ -66,7 +66,7 @@
   <p class="lede">The work behind the thrown-away block is wasted. Bitcoin avoids collisions by making blocks rare. Kaspa keeps both.</p>
   <div class="toy wide slab" id="collision-demo" data-collision-sim="cs-">
     <p class="try">Try it: speed up the blocks.</p>
-    <p>Drag from Bitcoin's pace to Kaspa's. The same blocks arrive in both pictures. Watch what the chain throws away.</p>
+    <p>Drag from Bitcoin’s pace to Kaspa’s. The same blocks arrive in both pictures. Watch what the chain throws away.</p>
     <div class="primary-control">
       <label for="cs-rate">Blocks found: <span class="big-readout" id="cs-rateVal"></span>
         <span class="info-affordance"><button type="button" class="info-affordance__trigger" data-pop="The slider stops at 32 a second, the fastest rate GHOSTDAG has a configured safety margin for in the Kaspa node's own table."><i class="info-affordance__glyph" aria-hidden="true">i</i><span class="sr-only">Why the range stops at 32</span></button></span>
@@ -93,10 +93,10 @@
     </div>
     <p class="sr-only" id="cs-graphSummary"></p>
     <button hidden id="cs-step" class="btn" type="button">Step one block</button>
-    <p class="take"><b>Takeaway.</b> At Kaspa's speed a single chain would throw away most of its blocks. That work was real. A blockDAG keeps it.</p>
+    <p class="take"><b>Takeaway.</b> At Kaspa’s speed a single chain would throw away most of its blocks. That work was real. A blockDAG keeps it.</p>
   </div>
   <details class="more nerd"><summary>Show me more: the collision math</summary><div class="in">
-    <p>Blocks arrive at random, like raindrops: a Poisson process with rate λ. Two collide when the next one is found before the first has spread, which takes delay d. The share a chain discards grows with λ × d. At Kaspa's ten a second and a 250 ms delay, λd = 2.5 and a chain would discard about 71% of blocks. Checked against the PHANTOM/GHOSTDAG paper, <a href="https://eprint.iacr.org/2018/104">eprint.iacr.org/2018/104</a>.</p>
+    <p>Blocks arrive at random, like raindrops: a Poisson process with rate λ. Two collide when the next one is found before the first has spread, which takes delay d. The share a chain discards grows with λ × d. At Kaspa’s ten a second and a 250 ms delay, λd = 2.5 and a chain would discard about 71% of blocks. Checked against the PHANTOM/GHOSTDAG paper, <a href="https://eprint.iacr.org/2018/104">eprint.iacr.org/2018/104</a>.</p>
     <p>Open nerd mode to see the network-delay slider in the toy above.</p>
   </div></details>
 </section>
@@ -114,11 +114,11 @@
   </div>
   <details class="more nerd"><summary>Show me more: how the order is built</summary><div class="in">
     <p>Each block names one <i>selected parent</i>, the parent with the most blue work behind it. Following those links gives a spine through the web, the selected chain (brighter squares). Each chain block merges the blocks it saw that its selected parent had not: its mergeset. The order is: everything before, then the mergeset sorted by accumulated work, then the chain block itself.</p>
-    <p>This page rebuilds that order in your browser from fields the node publishes for every block: the chain flag, selected parent, mergeset and blue work. A node's own virtual-chain call is the authority; this is a view of it. Blocks the network hasn't merged yet are shown as waiting.</p>
+    <p>This page rebuilds that order in your browser from fields the node publishes for every block: the chain flag, selected parent, mergeset and blue work. A node’s own virtual-chain call is the authority; this is a view of it. Blocks the network hasn’t merged yet are shown as waiting.</p>
     <p>A block stays blue if, among the blocks it could not have seen, at most k are blue. Kaspa sets k from the block rate and a worst-case network delay. Mainnet runs GHOSTDAG; DAGKnight is the planned successor that adapts to the network instead (see the race, below).</p>
   </div></details>
-  <details class="more" id="coinsMore"><summary>Show me more: why parallel payments don't queue</summary><div class="in">
-    <p>Kaspa tracks money as separate coins, the way Bitcoin does, rather than one balance per account. Payments that land in parallel blocks don't have to wait for each other.</p>
+  <details class="more" id="coinsMore"><summary>Show me more: why parallel payments don’t queue</summary><div class="in">
+    <p>Kaspa tracks money as separate coins, the way Bitcoin does, rather than one balance per account. Payments that land in parallel blocks don’t have to wait for each other.</p>
     <div class="toy slab" id="coins">
       <canvas id="coinsCanvas" height="170" role="img" aria-label="Five payments: as separate coins they go together; as one balance they queue."></canvas>
       <div class="controls"><button class="btn primary" type="button" id="coinsGo">Send five at once</button><span class="out muted" id="coinsOut"></span></div>
@@ -142,7 +142,7 @@
   </div>
   <p class="note">A teaching model with k = 3 and two honest blocks per round. The real network uses a k set from its block rate.</p>
   <details class="more nerd"><summary>Show me more: why the hidden blocks turn red</summary><div class="in">
-    <p>While you hid, the honest network kept making blocks your branch never saw. That gap is your blocks' anticone. A block stays blue only if at most k blue blocks sit in its anticone. Honest blocks, published at once, have small anticones. Yours has a huge one, so it is colored red and ordered after the honest ones. Red blocks still count; they just can't jump the queue.</p>
+    <p>While you hid, the honest network kept making blocks your branch never saw. That gap is your blocks’ anticone. A block stays blue only if at most k blue blocks sit in its anticone. Honest blocks, published at once, have small anticones. Yours has a huge one, so it is colored red and ordered after the honest ones. Red blocks still count; they just can’t jump the queue.</p>
   </div></details>
 </section>
 
