@@ -240,3 +240,11 @@ mark.tag.wrong{background:var(--crimson);color:#fff}
   .brand-t{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
   .switch{gap:4px}.switch button{padding:0 6px;font-size:12px;min-height:34px}
 }
+/* Shipped table: stack each row on phones so nothing sits off-screen. */
+@media (max-width:640px){
+  .lineup table{min-width:0}
+  .lineup thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .lineup tr{display:block;padding:12px 0;border-top:2px solid currentColor}
+  .lineup td{display:block;padding:2px 0}
+  .lineup mark.tag{white-space:normal}
+}

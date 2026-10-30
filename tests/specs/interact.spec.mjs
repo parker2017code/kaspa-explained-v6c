@@ -140,7 +140,7 @@ test('vault: every move gives its own verdict', async ({ page, errors }) => {
 
 test('lookup: rejects bad ids, reads a mocked transaction', async ({ page, errors }) => {
   await page.fill('#txIn', 'nope'); await page.click('#txGo');
-  await expect(page.locator('#txOut')).toContainText("doesn't look like a transaction id");
+  await expect(page.locator('#txOut')).toContainText("doesn’t look like a transaction id");
   const id = 'a'.repeat(64);
   await page.route('**/transactions/' + id + '*', r => r.fulfill({ json: { is_accepted: true, block_time: 1761800000000, outputs: [{ amount: 150000000 }] } }));
   await page.fill('#txIn', id); await page.click('#txGo');
