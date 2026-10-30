@@ -1,0 +1,5 @@
+/* Moose shelf */
+.moose .actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px auto 30px}
+.moose .actions a{display:inline-block;padding:9px 16px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--text);font-size:15px}
+.moose .actions a.primary{background:var(--text);color:var(--bg);border-color:var(--text);font-weight:600}
+.moose .actions a:hover{border-color:var(--green)}
