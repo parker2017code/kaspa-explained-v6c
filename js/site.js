@@ -388,7 +388,7 @@
   /* Chapter 6: read-only transaction lookup */
   $('txGo').addEventListener('click', function () {
     var id = $('txIn').value.trim().toLowerCase(), out = $('txOut');
-    if (!/^[0-9a-f]{64}$/.test(id)) { out.textContent = 'That doesn\'t look like a transaction id. It should be 64 characters, 0-9 and a-f.'; return; }
+    if (!/^[0-9a-f]{64}$/.test(id)) { out.textContent = 'That doesn’t look like a transaction id. It should be 64 characters, 0-9 and a-f.'; return; }
     out.textContent = 'Asking the network…';
     getJSON(API + '/transactions/' + id + '?resolve_previous_outpoints=no').then(function (tx) {
       var when = tx.block_time ? new Date(tx.block_time).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'medium' }) + ' your time' : 'unknown time';
@@ -435,7 +435,7 @@
   /* Chapter 7: rob the vault */
   var VAULT = {
     steal: 'Rejected. Every miner checked the rule: this coin may only go to the cold wallet before the lock date. Having the key was not enough.',
-    split: 'Rejected. The rule wants all of it to go to cold storage. Half doesn\'t count. Sneaky, though.',
+    split: 'Rejected. The rule wants all of it to go to cold storage. Half doesn’t count. Sneaky, though.',
     cold: 'Accepted. That is exactly what the rule allows. The owner is now very safe, and you have achieved nothing.',
     wait: 'Accepted, once the date has passed. That is the other path the owner wrote. Real vaults pair this with a long delay so the owner can react first.'
   };

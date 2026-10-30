@@ -333,6 +333,7 @@
       g.fillText(fmt(visited) + ' / ' + fmt(N), w - 24, w < 560 ? 31 : 16);
     }
   }
+  var orderRun = 0;
   function playOrder() {
     computeOrder();
     var o = ordered;
@@ -341,8 +342,9 @@
       fmt(o.chains) + (o.chains === 1 ? ' is a chain block' : ' are chain blocks') + ' (white): each one merged the blocks it saw. Red: <b>' + o.reds + '</b>.' +
       (o.waiting.length ? ' ' + o.waiting.length + ' newest still waiting for a chain block to merge them (gray).' : ''); };
     if (reduced) { anim = 1; drawOrder(); caption(); return; }
-    var t0 = performance.now(), lastV = 0;
-    (function step(now) { anim = Math.min(1, (now - t0) / 6000); var v = Math.floor(Math.min(1, anim / 0.62) * ordered.list.length); if (v > lastV) { tick(ordered.list[v - 1] && ordered.list[v - 1].chain); lastV = v; } drawOrder(); if (anim < 1) requestAnimationFrame(step); else caption(); })(t0);
+    var t0 = performance.now(), lastV = 0, run = ++orderRun;
+    /* a newer click or a fresh snapshot ends this run, so it never reads a cleared order */
+    (function step(now) { if (run !== orderRun || ordered !== o) return; anim = Math.min(1, (now - t0) / 6000); var v = Math.floor(Math.min(1, anim / 0.62) * o.list.length); if (v > lastV) { tick(o.list[v - 1] && o.list[v - 1].chain); lastV = v; } drawOrder(); if (anim < 1) requestAnimationFrame(step); else caption(); })(t0);
   }
   oGo.addEventListener('click', function () { takeSnap(); playOrder(); oGo.textContent = 'Line them up again'; });
   oAgain.addEventListener('click', function () { takeSnap(); $('orderOut').textContent = 'A fresh ten seconds from the network. Line them up.'; });

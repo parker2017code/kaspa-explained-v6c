@@ -3,14 +3,14 @@ import { test, expect } from './helpers.mjs';
 import AxeBuilder from '@axe-core/playwright';
 
 test('loads with zero console errors and live data', async ({ page, errors }) => {
-  await page.goto('/');
+  await page.goto('./');
   await expect(page.locator('#liveSource')).toContainText(/Live from api\.kaspa\.org|Simulation/, { timeout: 20_000 });
   await expect(page.locator('#hudRate')).not.toHaveText('…', { timeout: 20_000 });
   await expect(page.locator('#lfHash')).toHaveText(/PH\/s|EH\/s|not reachable/);
 });
 
 test('head: title, description, favicon, lang, viewport', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   await expect(page).toHaveTitle(/Kaspa/);
   await expect(page.locator('meta[name=description]')).toHaveAttribute('content', /.{40,}/);
   await expect(page.locator('link[rel=icon]')).toHaveAttribute('href', /.+/);
@@ -19,7 +19,7 @@ test('head: title, description, favicon, lang, viewport', async ({ page }) => {
 });
 
 test('no sideways scroll, nothing pokes out of the viewport', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   await page.locator('#liveSource').filter({ hasText: /Live|Simulation/ }).waitFor();
   const r = await page.evaluate(() => {
     const w = document.documentElement.clientWidth;
@@ -36,7 +36,7 @@ test('no sideways scroll, nothing pokes out of the viewport', async ({ page }) =
 test('reflow at 320 px and at 200% zoom (720 px)', async ({ page }) => {
   for (const width of [320, 720]) {
     await page.setViewportSize({ width, height: 800 });
-    await page.goto('/');
+    await page.goto('./');
     const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(over, `overflow at ${width}`).toBe(0);
   }
@@ -47,7 +47,7 @@ for (const [label, prep] of [
   ['nerd mode, light theme', async page => { await page.click('#nerd'); await page.click('#theme'); }],
 ]) {
   test(`axe: no serious or critical issues (${label})`, async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await page.locator('#liveSource').filter({ hasText: /Live|Simulation/ }).waitFor();
     await prep(page);
     // Let the hero fade-in finish; axe mid-transition reads half-opacity text as low contrast.
@@ -60,7 +60,7 @@ for (const [label, prep] of [
 }
 
 test('links: no empty or placeholder hrefs, in-page anchors resolve', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   const bad = await page.evaluate(() => [...document.querySelectorAll('a')].filter(a => {
     const h = a.getAttribute('href');
     if (!h || h === '#' || /^javascript:/i.test(h) || /example\.com|TODO|lorem/i.test(h)) return true;
@@ -71,14 +71,14 @@ test('links: no empty or placeholder hrefs, in-page anchors resolve', async ({ p
 });
 
 test('local files linked from the page exist', async ({ page, request }) => {
-  await page.goto('/');
+  await page.goto('./');
   const hrefs = await page.$$eval('a[href^="files/"]', as => as.map(a => a.getAttribute('href')));
   expect(hrefs.length).toBeGreaterThan(0);
   for (const h of hrefs) expect((await request.head(h)).status(), h).toBe(200);
 });
 
 test('controls are at least 24 px, or have a hit area that is', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   const small = await page.evaluate(() => [...document.querySelectorAll('button,summary,input,select,textarea,.btn,.dots a')].filter(e => {
     const b = e.getBoundingClientRect(); if (!b.width || !b.height) return false;
     const after = getComputedStyle(e, '::after'), before = getComputedStyle(e, '::before');
@@ -95,7 +95,7 @@ test('layout does not shift late (CLS under 0.1)', async ({ page }) => {
     window.__cls = 0;
     new PerformanceObserver(l => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
   });
-  await page.goto('/');
+  await page.goto('./');
   await page.locator('#liveSource').filter({ hasText: /Live|Simulation/ }).waitFor();
   await expect.poll(() => page.evaluate(() => document.getElementById('hudRate').textContent)).not.toBe('…');
   expect(await page.evaluate(() => window.__cls)).toBeLessThan(0.1);

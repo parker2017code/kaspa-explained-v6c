@@ -139,13 +139,13 @@ details.more .in{padding:4px 0 22px}
 .stair span{display:block}
 .stair span:nth-child(2){padding-left:6vw}.stair span:nth-child(3){padding-left:12vw}.stair span:nth-child(4){padding-left:18vw}.stair span:nth-child(5){padding-left:24vw}
 
-/* c4: two giant figures compared, cropped at the baseline. */
+/* c4: two giant figures compared, full glyphs, tight to the tile edge. */
 .versus{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:0 0 36px}
-.versus figure{margin:0;padding:18px 20px 0;overflow:hidden;background:#ff8126;color:#111}
+.versus figure{margin:0;padding:18px 20px 22px;overflow:hidden;background:#ff8126;color:#111}
 .versus figure+figure{background:#111;color:#ff8126}
 .versus figcaption{font:600 16px var(--font);margin-bottom:6px}
 .versus figure+figure figcaption{color:#f2f2f2}
-.spec{font:800 clamp(80px,14vw,240px)/.8 var(--display);text-transform:uppercase;margin:0;height:.66em;white-space:nowrap}
+.spec{font:800 clamp(80px,14vw,240px)/.8 var(--display);text-transform:uppercase;margin:0;white-space:nowrap}
 
 /* c6: the line-up, one type size, highlighter tags. */
 .lineup{margin:12px 0 0;max-width:none!important}
@@ -197,7 +197,7 @@ mark.tag.wrong{background:var(--crimson);color:#fff}
 .finish .card{max-width:44rem;border:2px solid currentColor;border-radius:0;background:transparent;padding:22px}
 .finish textarea{background:transparent;color:inherit;width:100%;font-size:18px}
 .foot{text-align:left;display:grid;grid-template-columns:1.15fr 1fr;gap:24px;padding:72px var(--m) 0;overflow:hidden;border:0;margin:0;max-width:none}
-.foot-mark{font:800 clamp(64px,11.5vw,190px)/.82 var(--display);text-transform:uppercase;margin:0 0 -.12em;align-self:end;color:#111}
+.foot-mark{font:800 clamp(64px,11.5vw,190px)/.82 var(--display);text-transform:uppercase;margin:0;padding-bottom:36px;align-self:end;color:#111}
 .foot-menu{padding-bottom:40px}
 .menu{list-style:none;margin:0;padding:0 0 0 22px;position:relative}
 .menu a{display:inline-block;font:800 clamp(34px,3.6vw,58px)/1.02 var(--display);text-transform:uppercase;color:#111;text-decoration:none;transition:transform .2s cubic-bezier(.2,.7,.2,1),color .2s}

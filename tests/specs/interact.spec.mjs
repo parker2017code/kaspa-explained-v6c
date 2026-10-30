@@ -2,7 +2,7 @@
 import { test, expect, setRange } from './helpers.mjs';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   await page.locator('#liveSource').filter({ hasText: /Live|Simulation/ }).waitFor({ timeout: 20_000 });
 });
 
