@@ -17,6 +17,7 @@ test('API unreachable: labeled simulation, honest fallbacks, no script errors', 
   await offline(page);
   await page.goto('./');
   await expect(page.locator('#liveSource')).toContainText('Simulation');
+  await expect(page.locator('#coldOpen')).not.toContainText('real Kaspa blocks');
   await expect(page.locator('#lfHash')).toHaveText('not reachable');
   await expect(page.locator('#lfSupply')).toHaveText('not reachable');
   await expect(page.locator('#tOut')).toContainText('could not be reached', { timeout: 20_000 });

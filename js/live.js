@@ -82,7 +82,7 @@
   }
   function setSource() {
     var s = $('liveSource'); if (!s) return;
-    if (L.sim) { s.textContent = 'Simulation: the live network could not be reached from your browser.'; return; }
+    if (L.sim) { s.textContent = 'Simulation: the live network could not be reached from your browser.'; var co = $('coldOpen'); if (co) co.textContent = 'Simulated blocks: the live network could not be reached.'; return; }
     if (!L.ok) return;
     s.innerHTML = paused ? 'Live feed paused to save data (about 0.3 MB a second). <button type="button" class="link" id="resume">Resume</button>'
       : 'Live from api.kaspa.org, shown a few seconds behind real time.';
